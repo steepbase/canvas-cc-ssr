@@ -1,0 +1,57 @@
+{
+  "name": "xbrew",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balintbrews/xbrew.git"
+  },
+  "author": "Bálint Kléri (https://balintbrews.com)",
+  "bugs": "https://github.com/balintbrews/xbrew/issues",
+  "homepage": "https://github.com/balintbrews/xbrew#readme",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@babel/standalone": "^7.27.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+    "@types/babel__standalone": "^7.1.9",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.27.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "tsup": "^8.5.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.32.1",
+    "vitest": "^3.1.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "dev": "tsup src/index.ts --env.NODE_ENV development --watch",
+    "build": "tsup src/index.ts --minify --env.NODE_ENV production",
+    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "code:check": "run-s -c -n code:check:**",
+    "code:check:tsc": "tsc --noEmit",
+    "code:check:prettier": "npm run s:prettier -- --check",
+    "code:check:eslint": "npm run s:eslint",
+    "code:fix": "run-s -c -n code:fix:**",
+    "code:fix:prettier": "npm run s:prettier -- --write",
+    "code:fix:eslint": "npm run s:eslint -- --fix",
+    "s:prettier": "prettier \"**/*.{ts,json,html,md}\"",
+    "s:eslint": "eslint \"**/*.ts\""
+  }
+}
