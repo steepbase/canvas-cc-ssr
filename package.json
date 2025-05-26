@@ -1,14 +1,14 @@
 {
-  "name": "xbrew",
+  "name": "@xbrew/render",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/balintbrews/xbrew.git"
+    "url": "git+https://github.com/balintbrews/xbrew-render.git"
   },
   "author": "Bálint Kléri (https://balintbrews.com)",
-  "bugs": "https://github.com/balintbrews/xbrew/issues",
-  "homepage": "https://github.com/balintbrews/xbrew#readme",
+  "bugs": "https://github.com/balintbrews/xbrew-render/issues",
+  "homepage": "https://github.com/balintbrews/xbrew-render#readme",
   "type": "module",
   "files": [
     "dist"
@@ -44,8 +44,8 @@
     }
   },
   "scripts": {
-    "dev": "tsup src/index.ts --env.NODE_ENV development --watch",
-    "build": "tsup src/index.ts --minify --env.NODE_ENV production",
+    "dev": "tsup src/server.ts src/render.ts --env.NODE_ENV development --watch",
+    "build": "tsup src/server.ts src/render.ts --minify --env.NODE_ENV production",
     "prepublishOnly": "npm run build",
     "test": "vitest",
     "code:check": "run-s -c -n code:check:**",
