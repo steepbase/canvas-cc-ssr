@@ -9,6 +9,8 @@ code components.
 
 ## Plans
 
+- [ ] Settle approach: rendering vs. post-processing — see
+      [#4: Post-processing already rendered HTML](https://github.com/balintbrews/xbrew-render/issues/4)
 - [ ] Make the render function handle anything Experience Builder can do with
       code components:
   - [x] Props
