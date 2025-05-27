@@ -1,5 +1,14 @@
 # xBrew Render
 
+```
+┌─────────────────────────────────────────────┐
+│                                             │
+│   * xBrew *                                 │
+│   Solutions brewed for Experience Builder   │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
 Server-side rendering for
 [Drupal Experience Builder](https://www.drupal.org/project/experience_builder)
 code components.
