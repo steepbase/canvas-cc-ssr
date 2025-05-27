@@ -40,6 +40,12 @@ test cases while running:
 $ npm test
 ```
 
+Fix code linting and formatting issues:
+
+```
+$ npm run code:fix
+```
+
 If you would like to test the server directly:
 
 ```
