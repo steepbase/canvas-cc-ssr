@@ -7,15 +7,18 @@ describe('POST /render', () => {
   it('should respond with 200 and the correct HTML', async () => {
     const requestPayload: RenderRequest = {
       code: `
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 export default function Test({ title, content }) {
-  return (
-    <div>
-      {title && <h2>{title}</h2>}
-      <div>
-        {content}
-      </div>
-    </div>
-  );
+    return /*#__PURE__*/ _jsxs("div", {
+        children: [
+            title && /*#__PURE__*/ _jsx("h2", {
+                children: title
+            }),
+            /*#__PURE__*/ _jsx("div", {
+                children: content
+            })
+        ]
+    });
 };
 `,
       props: {
