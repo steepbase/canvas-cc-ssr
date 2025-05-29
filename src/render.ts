@@ -1,8 +1,7 @@
-import type { BabelFileResult, TransformOptions } from '@babel/core';
-import { transform } from '@babel/standalone';
 import type { ComponentType, ReactElement } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
+import { rolldown } from 'rolldown';
 
 export type ComponentProps = Record<string, unknown>;
 
@@ -12,26 +11,48 @@ export type ComponentProps = Record<string, unknown>;
  * @param props - Props to pass to the component
  * @returns Rendered HTML string
  */
-export function render(code: string, props: ComponentProps = {}): string {
+export async function render(
+  code: string,
+  props: ComponentProps = {},
+): Promise<string> {
   let transformedCode: string;
   try {
-    const result = (
-      transform as (code: string, options: TransformOptions) => BabelFileResult
-    )(code, {
-      plugins: [['transform-modules-commonjs']],
+    const build = await rolldown({
+      input: 'virtual:entry',
+      plugins: [
+        {
+          name: 'virtual-entry',
+          resolveId(id) {
+            if (id === 'virtual:entry') {
+              return id; // Handle our virtual entry file in the loader below.
+            }
+            // Any other import will be resolved by Rolldown from node_modules.
+            return null;
+          },
+          load(id) {
+            if (id === 'virtual:entry') {
+              return code; // Return the user's code as the entry file
+            }
+            return null;
+          },
+        },
+      ],
     });
-    if (!result.code) {
-      throw new Error('Babel transformation failed: no code generated');
+
+    const { output } = await build.generate({
+      format: 'cjs',
+      name: 'Component',
+      minify: false,
+    });
+
+    const bundledCode = output[0].code;
+    return bundledCode;
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      throw new Error(`Module bundling failed: ${error.message}`);
     }
-    transformedCode = result.code;
-  } catch (transformError) {
-    console.log(transformError);
-    if (transformError instanceof Error) {
-      throw new Error(
-        `Module transformation failed: ${transformError.message}`,
-      );
-    }
-    throw new Error('Module transformation failed: Unknown error');
+    throw new Error('Module bundling failed: Unknown error');
   }
 
   // Minimal execution context
