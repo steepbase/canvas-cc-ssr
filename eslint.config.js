@@ -1,7 +1,7 @@
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'worker-configuration.d.ts'] },
   {
     extends: [
       ...tseslint.configs.strictTypeChecked,

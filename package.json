@@ -20,6 +20,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.8.34",
     "@eslint/js": "^9.27.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@types/babel__standalone": "^7.1.9",
@@ -36,7 +37,8 @@
     "tsup": "^8.5.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.32.1",
-    "vitest": "^3.1.4"
+    "vitest": "^3.1.4",
+    "wrangler": "^4.18.0"
   },
   "config": {
     "commitizen": {
@@ -48,6 +50,7 @@
     "build": "tsup src/server.ts src/render.ts --minify --env.NODE_ENV production",
     "prepublishOnly": "npm run build",
     "test": "vitest",
+    "cf-typegen": "wrangler types",
     "code:check": "run-s -c -n code:check:**",
     "code:check:tsc": "tsc --noEmit",
     "code:check:prettier": "npm run s:prettier -- --check",

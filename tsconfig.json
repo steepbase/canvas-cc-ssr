@@ -14,7 +14,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "types": ["./worker-configuration.d.ts"]
   },
-  "include": ["src"]
+  "exclude": ["test"],
+  "include": ["src", "test/index.spec.ts"]
 }
