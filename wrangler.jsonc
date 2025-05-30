@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "xbrew-render",
   "main": "src/index.ts",
+  "compatibility_flags": ["nodejs_compat"],
   "compatibility_date": "2025-05-29",
   "observability": {
     "enabled": true,

@@ -35,7 +35,7 @@ export default {
         });
       }
 
-      const result = render(code, props);
+      const result = await render(code, props);
       return new Response(result);
     } catch (error) {
       console.error('Error processing request:', error);

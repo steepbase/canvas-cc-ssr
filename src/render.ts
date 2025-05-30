@@ -1,7 +1,8 @@
-import * as esbuild from 'esbuild';
+import * as esbuild from 'esbuild-wasm';
 import type { ComponentType, ReactElement } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
+import wasm from '../node_modules/esbuild-wasm/esbuild.wasm';
 
 export type ComponentProps = Record<string, unknown>;
 
@@ -13,7 +14,7 @@ interface ImportConfig {
 
 type ImportMap = Record<string, ImportConfig>;
 
-// Default import map with common React-related imports using esm.sh
+// Default import map with common React-related imports
 const defaultImportMap: ImportMap = {
   react: { path: 'https://esm.sh/react', external: true },
   'react/jsx-runtime': { path: 'https://esm.sh/react/jsx-runtime' },
@@ -23,6 +24,8 @@ const defaultImportMap: ImportMap = {
     external: true,
   },
 };
+
+let initialized = false;
 
 /**
  * Renders React component code to HTML string
@@ -38,6 +41,14 @@ export async function render(
 ): Promise<string> {
   let transformedCode: string;
   try {
+    if (!initialized) {
+      await esbuild.initialize({
+        wasmModule: wasm,
+        worker: false,
+      });
+      initialized = true;
+    }
+
     // Merge default and custom import maps
     const importMap = { ...defaultImportMap, ...customImportMap };
 
@@ -50,7 +61,6 @@ export async function render(
       stdin: {
         contents: code,
         loader: 'js',
-        resolveDir: '/',
       },
       bundle: true,
       format: 'esm',
@@ -96,7 +106,7 @@ export async function render(
                 return {
                   contents,
                   loader: 'js',
-                  resolveDir: '/', // Set resolveDir to allow nested imports to be resolved
+                  resolveDir: '/',
                 };
               },
             );
@@ -110,7 +120,7 @@ export async function render(
       throw new Error('No output files generated from esbuild');
     }
     transformedCode = outputFiles[0].text;
-    return transformedCode;
+    console.log(transformedCode);
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
