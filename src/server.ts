@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+
 import { ComponentProps, render } from './render.js';
 
 export const app = express();

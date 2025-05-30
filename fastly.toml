@@ -1,0 +1,12 @@
+authors = [""]
+description = ""
+language = "javascript"
+manifest_version = 3
+name = "xbrew-render"
+service_id = ""
+
+[local_server]
+
+[scripts]
+  build = "npm run fastly:build"
+  post_init = "npm install"

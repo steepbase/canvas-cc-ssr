@@ -15,12 +15,16 @@
   ],
   "dependencies": {
     "@babel/standalone": "^7.27.2",
+    "@fastly/js-compute": "^3.34.0",
     "express": "^5.1.0",
+    "preact": "^10.26.8",
+    "preact-render-to-string": "^6.5.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@fastly/cli": "^11.2.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@types/babel__standalone": "^7.1.9",
     "@types/express": "^5.0.2",
@@ -47,6 +51,10 @@
     "dev": "tsup src/server.ts src/render.ts --env.NODE_ENV development --watch",
     "build": "tsup src/server.ts src/render.ts --minify --env.NODE_ENV production",
     "prepublishOnly": "npm run build",
+    "fastly:build": "run-s -n fastly:build:**",
+    "fastly:build:tsc": "tsup src/fastly-compute.ts --env.NODE_ENV production --minify",
+    "fastly:build:wasm": "js-compute-runtime dist/fastly-compute.cjs bin/main.wasm",
+    "fastly:deploy": "fastly compute publish",
     "test": "vitest",
     "code:check": "run-s -c -n code:check:**",
     "code:check:tsc": "tsc --noEmit",
