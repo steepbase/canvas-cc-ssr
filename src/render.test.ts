@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest';
+
 import { render } from './render';
 
 it('should render a component with function declaration', () => {

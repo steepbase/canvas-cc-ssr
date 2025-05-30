@@ -1,18 +1,28 @@
-import type { BabelFileResult, TransformOptions } from '@babel/core';
 import { transform } from '@babel/standalone';
-import type { ComponentType, ReactElement } from 'react';
-import { renderToString } from 'react-dom/server';
-import { Fragment, jsx, jsxs } from 'react/jsx-runtime';
+import { Fragment, h } from 'preact';
+import { render as preactRender } from 'preact-render-to-string';
+import type { BabelFileResult, TransformOptions } from '@babel/core';
+import type { Component as PreactComponent } from 'preact';
 
 export type ComponentProps = Record<string, unknown>;
 
 /**
- * Renders React component code to HTML string
+ * Renders Preact/React component code to HTML string.
  * @param code - Pre-compiled JS code for a component (must export default function)
  * @param props - Props to pass to the component
  * @returns Rendered HTML string
  */
 export function render(code: string, props: ComponentProps = {}): string {
+  // Transform the code to a CommonJS module. Otherwise, import statements
+  // will not work when the code is executed with `new Function()`.
+
+  // @todo Consider using a bundler instead.
+  // It would solve our challenges with supporting URL imports, e.g., from esm.sh
+  // where the output is in ESM format.
+  // The following branch has implementations for Rolldown and esbuild in
+  // subsequent commits: https://github.com/xBrew-io/render/tree/bundle-code.
+  // Using `esbuild-wasm` is probably the way to go, so the code can work in
+  // Fastly Compute.
   let transformedCode: string;
   try {
     const result = (
@@ -34,16 +44,16 @@ export function render(code: string, props: ComponentProps = {}): string {
     throw new Error('Module transformation failed: Unknown error');
   }
 
-  // Minimal execution context
-  const moduleExports: { default?: ComponentType<unknown> } = {};
+  const moduleExports: { default?: PreactComponent<unknown> } = {};
   const moduleScope = {
     exports: moduleExports,
     module: { exports: moduleExports },
+    // @todo Extend this to match XB's import map.
     require: (name: string) => {
       if (name === 'react/jsx-runtime') {
         return {
-          jsx,
-          jsxs,
+          jsx: h,
+          jsxs: h,
           Fragment,
         };
       }
@@ -51,8 +61,8 @@ export function render(code: string, props: ComponentProps = {}): string {
     },
   };
 
-  // Execute the transformed code
-  let Component: ComponentType<unknown>;
+  // Execute the transformed code.
+  let Component: PreactComponent<unknown>;
   try {
     // eslint-disable-next-line @typescript-eslint/no-implied-eval
     const func = new Function(...Object.keys(moduleScope), transformedCode);
@@ -74,16 +84,16 @@ export function render(code: string, props: ComponentProps = {}): string {
 
   if (typeof Component !== 'function') {
     throw new Error(
-      `Expected React component function, got ${typeof Component}`,
+      `Expected Preact component function, got ${typeof Component}`,
     );
   }
 
-  // Render to HTML
+  // Render to HTML.
+  // Using `preact-render-to-string` instead of `renderToString` from
+  // `react-dom/server` because it works in Fastly Compute.
   try {
-    const element = jsx(Component, props);
-    const html = (
-      renderToString as unknown as (element: ReactElement) => string
-    )(element);
+    const element = h(Component, props);
+    const html = preactRender(element);
     return html;
   } catch (renderError) {
     if (renderError instanceof Error) {
