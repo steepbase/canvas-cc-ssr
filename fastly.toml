@@ -2,7 +2,7 @@ authors = [""]
 description = ""
 language = "javascript"
 manifest_version = 3
-name = "xbrew-render"
+name = "steepbase-render"
 service_id = ""
 
 [local_server]

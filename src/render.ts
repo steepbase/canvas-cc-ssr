@@ -20,7 +20,7 @@ export function render(code: string, props: ComponentProps = {}): string {
   // It would solve our challenges with supporting URL imports, e.g., from esm.sh
   // where the output is in ESM format.
   // The following branch has implementations for Rolldown and esbuild in
-  // subsequent commits: https://github.com/xBrew-io/render/tree/bundle-code.
+  // subsequent commits: https://github.com/steepbase/render/tree/bundle-code.
   // Using `esbuild-wasm` is probably the way to go, so the code can work in
   // Fastly Compute.
   let transformedCode: string;
@@ -48,7 +48,7 @@ export function render(code: string, props: ComponentProps = {}): string {
   const moduleScope = {
     exports: moduleExports,
     module: { exports: moduleExports },
-    // @todo Extend this to match XB's import map.
+    // @todo Extend this to match the import map in Canvas.
     require: (name: string) => {
       if (name === 'react/jsx-runtime') {
         return {

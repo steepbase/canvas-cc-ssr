@@ -1,16 +1,15 @@
-# xBrew Render
+# Steepbase Render
 
 ```
-┌─────────────────────────────────────────────┐
-│                                             │
-│   * xBrew *                                 │
-│   Solutions brewed for Experience Builder   │
-│                                             │
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│                                     │
+│   * Steepbase *                     │
+│   Tools steeped for Drupal Canvas   │
+│                                     │
+└─────────────────────────────────────┘
 ```
 
-Server-side rendering for
-[Drupal Experience Builder](https://www.drupal.org/project/experience_builder)
+Server-side rendering for [Drupal Canvas](https://www.drupal.org/project/canvas)
 code components.
 
 > **Note:** The status of the project is experimental. It is unsafe for
@@ -19,14 +18,14 @@ code components.
 ## Plans
 
 - [ ] Settle approach: rendering vs. post-processing — see
-      [#4: Post-processing already rendered HTML](https://github.com/balintbrews/xbrew-render/issues/4)
-- [ ] Make the render function handle anything Experience Builder can do with
-      code components:
+      [#4: Post-processing already rendered HTML](https://github.com/steepbase/render/issues/4)
+- [ ] Make the render function handle anything Drupal Canvas can do with code
+      components:
   - [x] Props
   - [ ] Slots
   - [ ] First-party import of other code components
   - [ ] First-party import of
-        [XB's pre-bundled packages](https://git.drupalcode.org/project/experience_builder/-/blob/0.x/ui/lib/astro-hydration/src/components/Stub.jsx?ref_type=heads)
+        [pre-bundled packages in Canvas](https://git.drupalcode.org/project/canvas/-/blob/1.x/ui/lib/astro-hydration/src/components/Stub.jsx)
   - [ ] URL imports (e.g., from [esm.sh](https://esm.sh/))
 - [ ] Research if/how the render function can be made secure to run
   - [ ] E.g., look into [`isolated-vm`](https://github.com/laverdet/isolated-vm)

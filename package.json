@@ -1,14 +1,14 @@
 {
-  "name": "@xbrew/render",
+  "name": "@steepbase/render",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/balintbrews/xbrew-render.git"
+    "url": "git+https://github.com/steepbase/render.git"
   },
   "author": "Bálint Kléri (https://balintbrews.com)",
-  "bugs": "https://github.com/balintbrews/xbrew-render/issues",
-  "homepage": "https://github.com/balintbrews/xbrew-render#readme",
+  "bugs": "https://github.com/steepbase/render/issues",
+  "homepage": "https://github.com/steepbase/render#readme",
   "type": "module",
   "files": [
     "dist"
