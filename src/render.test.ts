@@ -44,3 +44,25 @@ export default Test;
   const result = render(code, props);
   expect(result).toBe('<div><h2>Test Title</h2><div>Test Content</div></div>');
 });
+
+it('should render a component with with client-side hooks', () => {
+  const code = `
+import { jsxs as _jsxs } from "react/jsx-runtime";
+import { useEffect, useState } from "preact/hooks";
+export default function Test() {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        setCount(count + 1);
+    }, []);
+    return /*#__PURE__*/ _jsxs("div", {
+        children: [
+            "Test ",
+            count
+        ]
+    });
+}
+  `;
+  const props = { title: 'Test Title', content: 'Test Content' };
+  const result = render(code, props);
+  expect(result).toBe('<div>Test 1</div>');
+});

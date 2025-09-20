@@ -1,8 +1,9 @@
+import type { BabelFileResult, TransformOptions } from '@babel/core';
 import { transform } from '@babel/standalone';
 import { Fragment, h } from 'preact';
-import { render as preactRender } from 'preact-render-to-string';
-import type { BabelFileResult, TransformOptions } from '@babel/core';
 import type { Component as PreactComponent } from 'preact';
+import { render as preactRender } from 'preact-render-to-string';
+import * as preactHooks from 'preact/hooks';
 
 export type ComponentProps = Record<string, unknown>;
 
@@ -57,6 +58,11 @@ export function render(code: string, props: ComponentProps = {}): string {
           Fragment,
         };
       }
+      if (name === 'preact/hooks') {
+        return {
+          ...preactHooks,
+        };
+      }
       throw new Error(`Module "${name}" not available`);
     },
   };
@@ -97,6 +103,7 @@ export function render(code: string, props: ComponentProps = {}): string {
     return html;
   } catch (renderError) {
     if (renderError instanceof Error) {
+      console.log(renderError);
       throw new Error(`Component rendering failed: ${renderError.message}`);
     }
     throw new Error('Component rendering failed: Unknown error');
