@@ -1,4 +1,4 @@
-# Steepbase Render
+# `canvas-cc-ssr`
 
 ```
 ┌─────────────────────────────────────┐
@@ -9,8 +9,8 @@
 └─────────────────────────────────────┘
 ```
 
-Server-side rendering for [Drupal Canvas](https://www.drupal.org/project/canvas)
-code components.
+Server-side rendering experiments for
+[Drupal Canvas](https://www.drupal.org/project/canvas) Code Components.
 
 > **Note:** The status of the project is experimental. It is unsafe for
 > production use.
@@ -23,7 +23,7 @@ code components.
       components:
   - [x] Props
   - [ ] Slots
-  - [ ] First-party import of other code components
+  - [ ] First-party import of other Code Components
   - [ ] First-party import of
         [pre-bundled packages in Canvas](https://git.drupalcode.org/project/canvas/-/blob/1.x/ui/lib/astro-hydration/src/components/Stub.jsx)
   - [ ] URL imports (e.g., from [esm.sh](https://esm.sh/))
