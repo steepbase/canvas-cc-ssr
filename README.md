@@ -1,14 +1,5 @@
 # `canvas-cc-ssr`
 
-```
-┌─────────────────────────────────────┐
-│                                     │
-│   * Steepbase *                     │
-│   Tools steeped for Drupal Canvas   │
-│                                     │
-└─────────────────────────────────────┘
-```
-
 Server-side rendering experiments for
 [Drupal Canvas](https://www.drupal.org/project/canvas) Code Components.
 
@@ -18,7 +9,7 @@ Server-side rendering experiments for
 ## Plans
 
 - [ ] Settle approach: rendering vs. post-processing — see
-      [#4: Post-processing already rendered HTML](https://github.com/steepbase/render/issues/4)
+      [#4: Post-processing already rendered HTML](https://github.com/balintbrews/canvas-cc-ssr/issues/4)
 - [ ] Make the render function handle anything Drupal Canvas can do with code
       components:
   - [x] Props

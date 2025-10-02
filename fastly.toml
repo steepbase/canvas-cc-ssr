@@ -2,7 +2,7 @@ authors = [""]
 description = ""
 language = "javascript"
 manifest_version = 3
-name = "steepbase-render"
+name = "canvas-cc-ssr"
 service_id = ""
 
 [local_server]

@@ -1,14 +1,14 @@
 {
-  "name": "@steepbase/canvas-cc-ssr",
+  "name": "canvas-cc-ssr",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/steepbase/canvas-cc-ssr.git"
+    "url": "git+https://github.com/balintbrews/canvas-cc-ssr.git"
   },
   "author": "Bálint Kléri (https://balintbrews.com)",
-  "bugs": "https://github.com/steepbase/canvas-cc-ssr/issues",
-  "homepage": "https://github.com/steepbase/canvas-cc-ssr#readme",
+  "bugs": "https://github.com/balintbrews/canvas-cc-ssr/issues",
+  "homepage": "https://github.com/balintbrews/canvas-cc-ssr#readme",
   "type": "module",
   "files": [
     "dist"
